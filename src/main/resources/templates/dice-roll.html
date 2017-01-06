@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header(${'Roll The Dice'})">
+    <meta charset="UTF-8" />
+    <title>RTD</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<h1>Pick a number!</h1>
+    <a href="/dice-roll/1">1</a>
+    <a href="/dice-roll/2">2</a>
+    <a href="/dice-roll/3">3</a>
+    <a href="/dice-roll/4">4</a>
+    <a href="/dice-roll/5">5</a>
+    <a href="/dice-roll/6">6</a>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

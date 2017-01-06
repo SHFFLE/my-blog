@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="utf-8" />
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+<h2>Product information</h2>
+<dl th:each="object : ${objectList}">
+    <dt>Product name</dt>
+    <dd th:text="${object.description}">Default item</dd>
+
+    <dt>Product price</dt>
+    <!-- Formatting numbers and concat strings -->
+    <dd th:text="${'$' + #numbers.formatDecimal(object.price, 1, 2)}">0.00</dd>
+
+    <dt>Product available from</dt>
+    <dd th:text="${object.available}">Ebay, probably?</dd>
+    <!--<dd th:text="${#dates.format(, 'dd-MM-yyyy')}">00-000-0000</dd>-->
+</dl>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Bonus: Generate a table with at least 10 items with formated values with the following columns: Description, Price, Available from -->
+</body>
+</html>

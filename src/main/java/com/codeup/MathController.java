@@ -20,7 +20,8 @@ class MathController {
                 return ("Result: " + (x * y));
             case "divided":
                 return ("Result: " + (x / y));
+            default:
+                return ("Valid operators are plus, minus, times, and divided.");
         }
-        return ("Valid operators are plus, minus, times, and divided.");
     }
 }

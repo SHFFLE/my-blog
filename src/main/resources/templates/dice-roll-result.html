@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header(${'Results!'})">
+    <meta charset="UTF-8" />
+    <title>Results!</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <h1>Your roll: <span th:text="${roll}">ROLL</span></h1>
+    <h1 style="color: red" th:if="${roll gt 6 or roll lt 1}"><strong>STOP CHEATING</strong></h1>
+    <h1>Dice roll: <span th:text="${random}">RANDOM</span></h1>
+    <h1 style="color: green" th:if="${roll eq random}">You guessed right!</h1>
+    <h1 style="color: red" th:if="${roll ne random}">You guessed wrong!</h1>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
