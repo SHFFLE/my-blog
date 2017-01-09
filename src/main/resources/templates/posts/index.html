@@ -8,7 +8,7 @@
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container">
     <div class="panel panel-default" th:each="post : ${postList}" th:object="${post}">
-        <div class="panel panel-heading" th:text="*{title}">Title</div>
+        <a th:href="@{'/posts/' + *{id}}"><div class="panel panel-heading" th:text="*{title}">Title</div></a>
         <div class="panel panel-body" th:text="*{body}">Body</div>
     </div>
 </div>

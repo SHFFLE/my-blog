@@ -19,7 +19,7 @@ public class PostsDao implements Posts {
     @Override
     @SuppressWarnings("unchecked")
     public List<Post> all() {
-        Query query = session.createQuery("from Post");
+        Query query = session.createQuery("from Post order by id desc");
         return query.list();
 
     }
@@ -28,6 +28,28 @@ public class PostsDao implements Posts {
     public void insert(Post post) {
         Transaction tx = session.beginTransaction();
         session.save(post);
+        tx.commit();
+    }
+
+    @Override
+    public Post getPostByID(int id){
+        Query query = session.createQuery("from Post where id = :id");
+        query.setParameter("id", id);
+        return (Post) query.uniqueResult();
+    }
+
+    @Override
+    public void deletePost(int id){
+        Transaction tx = session.beginTransaction();
+        Post post = getPostByID(id);
+        session.delete(post);
+        tx.commit();
+    }
+
+    @Override
+    public void updatePost(Post post){
+        Transaction tx = session.beginTransaction();
+        session.update(post);
         tx.commit();
     }
 

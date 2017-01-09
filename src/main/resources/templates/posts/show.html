@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header(${Post})">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+    <div class="panel panel-default" th:object="${post}">
+        <div class="panel panel-heading" th:text="*{title}">Title</div>
+        <div class="panel panel-body" th:text="*{body}">Body</div>
+        <form th:action="@{'/posts/'+*{id}+'/delete'}" th:method="get">
+            <button>Delete</button>
+        </form>
+        <form th:action="@{'/posts/'+*{id}+'/edit'}" th:method="get">
+            <button>Edit</button>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

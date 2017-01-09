@@ -9,9 +9,11 @@
 <div class="container">
     <form action="/posts/create" method="post" th:object="${post}" class="form-group">
         <label>Title:</label>
-        <input class="form-control" th:field="*{title}" />
+        <input class="form-control" th:value="*{title}" th:field="*{title}" />
+        <p class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
         <label>Body</label>
-        <input class="form-control" th:field="*{body}" />
+        <textarea class="form-control" th:value="*{body}" th:field="*{body}"></textarea>
+        <p class="alert alert-danger" th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></p>
         <input class="button btn-default" type="submit" />
     </form>
 </div>

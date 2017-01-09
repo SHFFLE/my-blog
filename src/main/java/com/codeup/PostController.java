@@ -1,14 +1,14 @@
 package com.codeup;
 
 import com.codeup.dao.DaoFactory;
+import com.codeup.dao.PostsDao;
 import com.codeup.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,8 +29,45 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public String createPost(@ModelAttribute Post post){
+    public String createPost(@Valid Post post, Errors validation, Model model){
+        if(validation.hasErrors()){
+            model.addAttribute(validation.getAllErrors());
+            model.addAttribute("post", post);
+            return "posts/create";
+        }
         DaoFactory.getPostsDao().insert(post);
         return "redirect:/posts";
+    }
+
+    @GetMapping("/{id}")
+    public String individualPost(@PathVariable int id, Model model){
+        model.addAttribute("post", DaoFactory.getPostsDao().getPostByID(id));
+        return "/posts/show";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deletePost(@PathVariable int id){
+        DaoFactory.getPostsDao().deletePost(id);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String updatePostGet(@PathVariable int id, Model model){
+        model.addAttribute("post", DaoFactory.getPostsDao().getPostByID(id));
+        return "/posts/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updatePost(@PathVariable int id, @Valid Post post, Errors validation, Model model){
+        if(validation.hasErrors()){
+            model.addAttribute(validation.getAllErrors());
+            model.addAttribute("post", post);
+            return "posts/edit";
+        }
+        Post oldPost = DaoFactory.getPostsDao().getPostByID(id);
+        oldPost.setTitle(post.getTitle());
+        oldPost.setBody(post.getBody());
+        DaoFactory.getPostsDao().updatePost(oldPost);
+        return "redirect:/posts/{id}";
     }
 }

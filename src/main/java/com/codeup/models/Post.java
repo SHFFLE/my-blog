@@ -1,17 +1,23 @@
 package com.codeup.models;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
 
+    @NotBlank(message = "Title can't be empty")
+    @Size(min = 3, max = 255, message = "Title must be between 3 and 255 characters")
     @Column(nullable = false)
     String title;
 
+    @NotBlank(message = "Body can't be empty")
     @Column(nullable = false)
     String body;
 
@@ -42,7 +48,7 @@ public class Post {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public String getBody() {
@@ -50,7 +56,7 @@ public class Post {
     }
 
     public void setBody(String body) {
-        this.body = body;
+        this.body = body.trim();
     }
 }
 
