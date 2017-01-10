@@ -7,7 +7,7 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container">
-    <form action="/posts/create" method="post" th:object="${post}" class="form-group">
+    <form th:action="@{'/posts/create'}" method="post" th:object="${post}" class="form-group">
         <label>Title:</label>
         <input class="form-control" th:value="*{title}" th:field="*{title}" />
         <p class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>

@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    long id;
 
     @NotBlank(message = "Title can't be empty")
     @Size(min = 3, max = 255, message = "Title must be between 3 and 255 characters")
@@ -21,7 +21,7 @@ public class Post {
     @Column(nullable = false)
     String body;
 
-    public Post(int id, String title, String body){
+    public Post(long id, String title, String body){
         this.id = id;
         this.title = title;
         this.body = body;
@@ -35,11 +35,11 @@ public class Post {
     public Post(){}
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
